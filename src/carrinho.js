@@ -1,67 +1,55 @@
 import React from "react";
 
-function Cart({ cart, removeFromCart }) {
+function Carrinho({ carrinho, removerDoCarrinho, atualizarQuantidade }) {
+  const calcularTotal = () => {
+    return carrinho.reduce((total, produto) => total + produto.preco * produto.quantidade, 0);
+  };
+
+  // Função para remover o produto automaticamente quando a quantidade for zero
+  const handleQuantidade = (produto, quantidade) => {
+    if (quantidade <= 0) {
+      removerDoCarrinho(produto);
+    } else {
+      atualizarQuantidade(produto, quantidade);
+    }
+  };
+
   return (
-    <div style={styles.section}>
-      <h2>O teu carrinho</h2>
-      {cart.length === 0 ? (
-        <p>O teu carrinho está vazio!</p>
+    <div style={estilos.secaoCarrinho}>
+      <h3>Carrinho</h3>
+      {carrinho.length === 0 ? (
+        <p>O carrinho está vazio.</p>
       ) : (
-        <ul style={styles.cartList}>
-          {cart.map((product, index) => (
-            <li key={index} style={styles.cartItem}>
-              <img 
-                src={product.image} 
-                alt={product.name} 
-                style={styles.cartImage} 
-              />
-              <div style={styles.productInfo}>
-                <p>{product.name}</p>
-                <p>€{product.price.toFixed(2)}</p>
-              </div>
-              <button
-                id = "remover" 
-                onClick={() => removeFromCart(product)} 
-                style={styles.button}>
-                Remover
-              </button>
-            </li>
+        <div>
+          {carrinho.map((produto) => (
+            <div key={produto.id} style={estilos.produtoCarrinho}>
+              <img src={produto.imagem} alt={produto.nome} style={estilos.imagemProdutoCarrinho} />
+              <p>{produto.nome}</p>
+              <p>€{produto.preco.toFixed(2)}</p>
+              <p>Quantidade: {produto.quantidade}</p>
+              <button onClick={() => handleQuantidade(produto, produto.quantidade - 1)} style={estilos.botaoAlterar}>-</button>
+              <button onClick={() => handleQuantidade(produto, produto.quantidade + 1)} style={estilos.botaoAlterar}>+</button>
+              <button onClick={() => removerDoCarrinho(produto)} style={estilos.botaoRemover}>Remover</button>
+            </div>
           ))}
-        </ul>
+          <div style={estilos.total}>
+            <p>Total: €{calcularTotal().toFixed(2)}</p>
+            <button style={estilos.botaoFinalizar}>Finalizar Compra</button>
+          </div>
+        </div>
       )}
     </div>
   );
 }
 
-const styles = {
-  section: { padding: "1rem", textAlign: "center" },
-  cartList: { listStyle: "none", padding: 0 },
-  cartItem: { 
-    display: "flex", 
-    alignItems: "center", 
-    justifyContent: "space-between", 
-    margin: "10px 0", 
-    borderBottom: "1px solid #ddd", 
-    padding: "10px 0" 
-  },
-  cartImage: { 
-    width: "50px", 
-    height: "50px", 
-    objectFit: "cover", 
-    marginRight: "10px", 
-    borderRadius: "5px" 
-  },
-  productInfo: { 
-    flex: 1, 
-    textAlign: "left" 
-  },
-  button: { 
-    backgroundColor: "#FF4136", 
-    color: "#fff", 
-    border: "none", 
-    borderRadius: "5px", 
-    padding: "5px 10px" 
-  },
+const estilos = {
+  secaoCarrinho: { padding: "1rem", textAlign: "center" },
+  produtoCarrinho: { display: "flex", justifyContent: "space-between", alignItems: "center", padding: "10px", border: "1px solid #ddd", borderRadius: "10px", marginBottom: "10px" },
+  imagemProdutoCarrinho: { width: "50px", height: "50px", objectFit: "cover", borderRadius: "5px" },
+  botaoAlterar: { marginLeft: "10px", padding: "5px 10px", backgroundColor: "#007BFF", color: "#fff", border: "none", cursor: "pointer" },
+  botaoRemover: { marginLeft: "10px", padding: "5px 10px", backgroundColor: "#dc3545", color: "#fff", border: "none", cursor: "pointer" },
+  total: { marginTop: "20px" },
+  botaoFinalizar: { padding: "10px", backgroundColor: "#28a745", color: "fff", border: "none", cursor: "pointer" }
 };
 
-export default Cart;
+export default Carrinho;

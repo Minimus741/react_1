@@ -1,33 +1,42 @@
-import React from "react";
-import { useParams } from "react-router-dom";
+import React, { useState, useEffect } from "react";
+import { useParams } from "react-router-dom"; // Para pegar o ID do produto da URL
 
-function ProductDetail() {
-  const { id } = useParams(); // Pega o ID da URL
-  const products = [
-    { id: 1, name: "PC gaming RGB full leds", price: 899, image: "https://storage.googleapis.com/catalog-pictures-carrefour-es/catalog/pictures/hd_510x_/8425402437674_1.jpg", description: "PC gaming com iluminação RGB para uma experiência imersiva." },
-    { id: 2, name: "Laptop todo XPTO", price: 1100, image: "https://www.worten.pt/i/df10a575b683ef8dff505bcf7bf369aadf4b5ab7", description: "Laptop de alta performance para todas as necessidades." },
-    { id: 3, name: "Rato gaming maris", price: 89, image: "https://servitek.pt/2145-large_default/rato-gaming-havit-gamenote-ms1003-rgb.jpg", description: "Rato gaming ergonómico e preciso." }
+function DetalhesProduto({ adicionarAoCarrinho }) {
+  const { id } = useParams(); // Pega o ID do produto da URL
+  const [produto, setProduto] = useState(null);
+
+  const todosOsProdutos = [
+    { id: 1, nome: "PC Gaming RGB Full Leds", preco: 899, categoria: "Computadores", descricao: "É só luz, parece um aeroporto.", imagem: "https://storage.googleapis.com/catalog-pictures-carrefour-es/catalog/pictures/hd_510x_/8425402437674_1.jpg" },
+    { id: 2, nome: "Laptop Todo XPTO", preco: 1100, categoria: "Laptops", descricao: "O machibombo para queimar pernas com o calor.", imagem: "https://www.worten.pt/i/df10a575b683ef8dff505bcf7bf369aadf4b5ab7" },
+    { id: 3, nome: "Teclado Mecânico RGB", preco: 120, categoria: "Periféricos", descricao: "Teclado mecânico para fazer barulho.", imagem: "https://m.media-amazon.com/images/I/71FSIp+tDNL.jpg" },
+    // Adicionar mais produtos aqui
   ];
 
-  const product = products.find(p => p.id === parseInt(id)); // Encontra o produto pelo ID
+  // Encontra o produto pelo ID
+  useEffect(() => {
+    const produtoEncontrado = todosOsProdutos.find((produto) => produto.id === parseInt(id));
+    setProduto(produtoEncontrado);
+  }, [id]);
 
-  if (!product) {
-    return <h2>Produto não encontrado</h2>;
+  if (!produto) {
+    return <div>Produto não encontrado!</div>;
   }
 
   return (
-    <div style={styles.section}>
-      <h2>{product.name}</h2>
-      <img src={product.image} alt={product.name} style={styles.productImage} />
-      <p>{product.description}</p>
-      <p>€{product.price.toFixed(2)}</p>
+    <div style={estilos.paginaDetalhes}>
+      <h2>{produto.nome}</h2>
+      <img src={produto.imagem} alt={produto.nome} style={estilos.imagemProduto} />
+      <p><strong>Preço:</strong> €{produto.preco.toFixed(2)}</p>
+      <p><strong>Descrição:</strong> {produto.descricao}</p>
+      <button onClick={() => adicionarAoCarrinho(produto)} style={estilos.botaoAdicionar}>Adicionar ao Carrinho</button>
     </div>
   );
 }
 
-const styles = {
-  section: { padding: "1rem", textAlign: "center" },
-  productImage: { width: "300px", height: "auto", objectFit: "cover" },
+const estilos = {
+  paginaDetalhes: { padding: "2rem", textAlign: "center" },
+  imagemProduto: { width: "300px", height: "200px", objectFit: "cover", borderRadius: "5px" },
+  botaoAdicionar: { marginTop: "20px", backgroundColor: "#4CAF50", color: "white", border: "none", padding: "10px", cursor: "pointer" },
 };
 
-export default ProductDetail;
+export default DetalhesProduto;

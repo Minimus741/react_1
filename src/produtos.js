@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Link } from "react-router-dom"; // Importação do Link hehe
+import { Link } from "react-router-dom"; // Importação do Link
 
 function Produtos({ adicionarAoCarrinho }) {
   const todosOsProdutos = [
@@ -35,9 +35,6 @@ function Produtos({ adicionarAoCarrinho }) {
       <div style={estilos.produtos}>
         {produtosFiltrados.map((produto) => (
           <div key={produto.id} style={estilos.produto}>
-            <Link to={`/produto/${produto.id}`} style={estilos.botaoDetalhes}>
-              Detalhes
-            </Link>
             <Link to={`/produto/${produto.id}`} style={estilos.linkProduto}>
               <img src={produto.imagem} alt={produto.nome} style={estilos.imagemProduto} />
               <p>{produto.nome}</p>
@@ -52,7 +49,6 @@ function Produtos({ adicionarAoCarrinho }) {
 }
 
 const estilos = {
-  
   secaoProdutos: { padding: "1rem", display: "flex" },
   filtro: { width: "200px", marginRight: "20px" },
   produtos: { display: "flex", flexWrap: "wrap", gap: "20px" },
@@ -62,25 +58,24 @@ const estilos = {
   botaoAdicionar: { marginTop: "10px", backgroundColor: "#4CAF50", color: "white", border: "none", padding: "10px", cursor: "pointer" },
 
     // Outros estilos mantêm-se iguais
-    botaoDetalhes: {
-      display: "inline-block",
-      padding: "10px 15px",
-      backgroundColor: "#007BFF",
-      color: "white",
-      border: "none",
-      borderRadius: "5px",
-      fontSize: "14px",
-      fontWeight: "bold",
-      textAlign: "center",
-      cursor: "pointer",
-      transition: "all 0.3s ease",
-      textDecoration: "none",
-    },
-    botaoDetalhesHover: {
-      transform: "scale(1.03)",
-      boxShadow: "0px 2px 4px rgba(0, 0, 0, 0.2)",
-    },
-  };
-  
+      botaoDetalhes: {
+        display: "inline-block",
+        padding: "10px 15px",
+        backgroundColor: "#007BFF",
+        color: "white",
+        border: "none",
+        borderRadius: "5px",
+        fontSize: "14px",
+        fontWeight: "bold",
+        textAlign: "center",
+        cursor: "pointer",
+        transition: "all 0.3s ease",
+        textDecoration: "none",
+      },
+      botaoDetalhesHover: {
+        transform: "scale(1.03)",
+        boxShadow: "0px 2px 4px rgba(0, 0, 0, 0.2)",
+      },
+    };
 
 export default Produtos;

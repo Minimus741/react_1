@@ -6,9 +6,9 @@ function DetalhesProduto({ adicionarAoCarrinho }) {
   const [produto, setProduto] = useState(null);
 
   const todosOsProdutos = [
-    { id: 1, nome: "PC Gaming RGB Full Leds", preco: 899, categoria: "Computadores", descricao: "É só luz, parece um aeroporto.", imagem: "https://storage.googleapis.com/catalog-pictures-carrefour-es/catalog/pictures/hd_510x_/8425402437674_1.jpg" },
-    { id: 2, nome: "Laptop Todo XPTO", preco: 1100, categoria: "Laptops", descricao: "O machibombo para queimar pernas com o calor.", imagem: "https://www.worten.pt/i/df10a575b683ef8dff505bcf7bf369aadf4b5ab7" },
-    { id: 3, nome: "Teclado Mecânico RGB", preco: 120, categoria: "Periféricos", descricao: "Teclado mecânico para fazer barulho.", imagem: "https://m.media-amazon.com/images/I/71FSIp+tDNL.jpg" },
+    { id: 1, nome: "PC Gaming RGB Full Leds", preco: 899, categoria: "Computadores", descricao: "É só luz, parece um aeroporto", imagem: "https://storage.googleapis.com/catalog-pictures-carrefour-es/catalog/pictures/hd_510x_/8425402437674_1.jpg" },
+    { id: 2, nome: "Laptop Todo XPTO", preco: 1100, categoria: "Laptops", descricao: "O machibombo para quimar pernas com o calor", imagem: "https://www.worten.pt/i/df10a575b683ef8dff505bcf7bf369aadf4b5ab7" },
+    { id: 3, nome: "Teclado Mecânico RGB", preco: 120, categoria: "Periféricos", descricao: "Teclado mecânico para fazer barulho", imagem: "https://m.media-amazon.com/images/I/71FSIp+tDNL.jpg" },
     // Adicionar mais produtos aqui
   ];
 

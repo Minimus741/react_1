@@ -88,7 +88,7 @@ function Home() {
   // Produtos em destaque na página inicial
   const produtosEmDestaque = [
     { id: 1, nome: "PC Gaming RGB Full Leds", preco: 899, imagem: "https://storage.googleapis.com/catalog-pictures-carrefour-es/catalog/pictures/hd_510x_/8425402437674_1.jpg" },
-    { id: 2, nome: "Laptop Todo XPTO", preco: 1100, imagem: "https://www.worten.pt/i/df10a575b683ef8dff505bcf7bf369aadf4b5ab7" },
+    { id: 2, nome: "Laptop Rog", preco: 1100, imagem: "https://www.worten.pt/i/df10a575b683ef8dff505bcf7bf369aadf4b5ab7" },
   ];
 
   return (
@@ -104,7 +104,7 @@ function Home() {
             />
             <p>{produto.nome}</p>
             <p>€{produto.preco.toFixed(2)}</p>
-            {/* Link para ver mais detalhes sobre o produto */}
+            {/* Link para ver mais detalhes sobre os produtos */}
             <Link to={`/produto/${produto.id}`} style={estilos.linkProduto}>
               Ver Detalhes
             </Link>

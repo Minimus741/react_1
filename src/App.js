@@ -4,7 +4,7 @@ import Produtos from "./produtos";
 import DetalhesProduto from "./Detalhesproduto";
 import Carrinho from "./carrinho";
 import "./produtos.css";
-
+import API from "./API";
 function App() {
   // Estado para armazenar os produtos no carrinho
   const [carrinho, setCarrinho] = useState([]);

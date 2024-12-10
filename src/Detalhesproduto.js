@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import { useParams } from "react-router-dom"; // Para pegar o ID do produto da URL
 
 function DetalhesProduto({ adicionarAoCarrinho }) {
-  const { id } = useParams(); // Pega o ID do produto da URL
+  const { id } = useParams(); // Pega o ID do produto
   const [produto, setProduto] = useState(null);
 
   const todosOsProdutos = [

@@ -1,90 +1,130 @@
-import React, { useState } from "react";
-import { Link } from "react-router-dom"; // Para criar links entre as páginas
+import React, { useState, useEffect } from "react";
+import { Link } from "react-router-dom";
 
-// Componente para listar os produtos
+// Importar o arquivo JSON diretamente
+import apiData from "./API.json";
+
 function Produtos({ adicionarAoCarrinho }) {
-  // Lista de todos os produtos disponíveis
-  const todosOsProdutos = [
-    { id: 1, nome: "PC Gaming RGB Full Leds", preco: 899, categoria: "Computadores", imagem: "https://storage.googleapis.com/catalog-pictures-carrefour-es/catalog/pictures/hd_510x_/8425402437674_1.jpg" },
-    { id: 2, nome: "Laptop Todo XPTO", preco: 1100, categoria: "Laptops", imagem: "https://www.worten.pt/i/df10a575b683ef8dff505bcf7bf369aadf4b5ab7" },
-    { id: 3, nome: "Teclado Mecânico RGB", preco: 120, categoria: "Periféricos", imagem: "https://m.media-amazon.com/images/I/71FSIp+tDNL.jpg" },
-    // Podes adicionar mais produtos aqui
-  ];
+  const [produtos, setProdutos] = useState([]); // Estado para guardar os produtos
+  const [produtosFiltrados, setProdutosFiltrados] = useState([]); // Produtos filtrados
+  const [categoriaFiltro, setCategoriaFiltro] = useState(""); // Categoria do filtro
 
-  // Estado para guardar os produtos filtrados
-  const [produtosFiltrados, setProdutosFiltrados] = useState(todosOsProdutos);
-  // Estado para guardar a categoria selecionada no filtro
-  const [categoriaFiltro, setCategoriaFiltro] = useState("");
+  // Caminhos das imagens de placeholder
+  const psuImagem = "https://via.placeholder.com/200?text=PSU";
+  const gpuImagem = "https://via.placeholder.com/200?text=GPU";
+  const tecladoImagem = "https://via.placeholder.com/200?text=Teclado";
+  const memoriaImagem = "https://via.placeholder.com/200?text=Memória";
+  const ratoImagem = "https://via.placeholder.com/200?text=Rato";
 
-  // Função para filtrar os produtos com base na categoria
-  const handleFiltroCategoria = (e) => {
-    setCategoriaFiltro(e.target.value); // Atualiza o estado da categoria
-    if (e.target.value === "") {
-      setProdutosFiltrados(todosOsProdutos); // Mostra todos os produtos se nenhuma categoria for selecionada
-    } else {
-      setProdutosFiltrados(
-        todosOsProdutos.filter((produto) => produto.categoria === e.target.value) // Filtra produtos pela categoria
-      );
+  // Carregar os dados da API (já importado)
+  useEffect(() => {
+    const produtosFormatados = [];
+
+    // Fontes de alimentação
+    if (apiData["power-supply"]) {
+      produtosFormatados.push(...apiData["power-supply"].slice(0, 5).map((produto, index) => ({
+        id: `psu-${index + 1}`,
+        nome: `${produto.brand} ${produto.model}`,
+        preco: parseFloat(produto.price[1]) || 0,
+        categoria: "Fontes de Alimentação",
+        imagem: psuImagem,
+      })));
     }
+
+    // Placas gráficas
+    if (apiData["video-card"]) {
+      produtosFormatados.push(...apiData["video-card"].slice(0, 5).map((produto, index) => ({
+        id: `gpu-${index + 1}`,
+        nome: `${produto.brand} ${produto.model}`,
+        preco: parseFloat(produto.price[1]) || 0,
+        categoria: "Placas Gráficas",
+        imagem: gpuImagem,
+      })));
+    }
+
+    // Teclados
+    if (apiData["keyboard"]) {
+      produtosFormatados.push(...apiData["keyboard"].slice(0, 5).map((produto, index) => ({
+        id: `keyboard-${index + 1}`,
+        nome: `${produto.brand} ${produto.model}`,
+        preco: parseFloat(produto.price[1]) || 0,
+        categoria: "Teclados",
+        imagem: tecladoImagem,
+      })));
+    }
+
+    // Memórias
+    if (apiData["memory"]) {
+      produtosFormatados.push(...apiData["memory"].slice(0, 5).map((produto, index) => ({
+        id: `memory-${index + 1}`,
+        nome: `${produto.brand} ${produto.model}`,
+        preco: parseFloat(produto.price[1]) || 0,
+        categoria: "Memórias",
+        imagem: memoriaImagem,
+      })));
+    }
+
+    // Ratos
+    if (apiData["mouse"]) {
+      produtosFormatados.push(...apiData["mouse"].slice(0, 5).map((produto, index) => ({
+        id: `mouse-${index + 1}`,
+        nome: `${produto.brand} ${produto.model}`,
+        preco: parseFloat(produto.price[1]) || 0,
+        categoria: "Ratos",
+        imagem: ratoImagem,
+      })));
+    }
+
+    setProdutos(produtosFormatados); // Atualiza o estado com todos os produtos
+    setProdutosFiltrados(produtosFormatados); // Inicialmente, mostra todos os produtos
+  }, []);
+
+  // Função para filtrar os produtos pela categoria selecionada
+  const handleFiltroCategoria = (e) => {
+    setCategoriaFiltro(e.target.value); // Atualiza o filtro de categoria
+    setProdutosFiltrados(
+      e.target.value === ""
+        ? produtos // Mostra todos os produtos se não houver categoria
+        : produtos.filter((produto) => produto.categoria === e.target.value) // Filtra pela categoria
+    );
   };
 
   return (
-    <div style={estilos.secaoProdutos}>
-      {/* Secção para o filtro de categorias */}
-      <div style={estilos.filtro}>
+    <div>
+      {/* Filtro para selecionar a categoria */}
+      <div>
         <h4>Filtrar por Categoria</h4>
         <select onChange={handleFiltroCategoria} value={categoriaFiltro}>
           <option value="">Todos</option>
-          <option value="Computadores">Computadores</option>
-          <option value="Laptops">Laptops</option>
-          <option value="Periféricos">Periféricos</option>
+          <option value="Fontes de Alimentação">Fontes de Alimentação</option>
+          <option value="Placas Gráficas">Placas Gráficas</option>
+          <option value="Teclados">Teclados</option>
+          <option value="Memórias">Memórias</option>
+          <option value="Ratos">Ratos</option>
         </select>
       </div>
-      
-      {/* Secção para listar os produtos */}
-      <div style={estilos.produtos}>
+
+      {/* Exibe os produtos filtrados */}
+      <div style={{ display: "flex", flexWrap: "wrap", gap: "20px" }}>
         {produtosFiltrados.map((produto) => (
-          <div key={produto.id} style={estilos.produto}>
+          <div key={produto.id} style={{ border: "1px solid #ddd", padding: "10px", width: "200px" }}>
             {/* Link para a página de detalhes do produto */}
-            <Link to={`/produto/${produto.id}`} style={estilos.linkProduto}>
-              <img src={produto.imagem} alt={produto.nome} style={estilos.imagemProduto} />
+            <Link to={`/produto/${produto.id}`} style={{ textDecoration: "none", color: "inherit" }}>
+              <img
+                src={produto.imagem} // Imagem do produto
+                alt={produto.nome}
+                style={{ width: "100%", height: "150px", objectFit: "cover" }} // Estilo para a imagem
+              />
               <p>{produto.nome}</p>
               <p>€{produto.preco.toFixed(2)}</p>
             </Link>
             {/* Botão para adicionar ao carrinho */}
-            <button onClick={() => adicionarAoCarrinho(produto)} style={estilos.botaoAdicionar}>Adicionar ao Carrinho</button>
+            <button onClick={() => adicionarAoCarrinho(produto)}>Adicionar ao Carrinho</button>
           </div>
         ))}
       </div>
     </div>
   );
 }
-
-// Estilos para o layout e design do componente
-const estilos = {
-  secaoProdutos: { 
-    padding: "1rem", display: "flex" // Secção principal com filtro e produtos
-  },
-  filtro: { 
-    width: "200px", marginRight: "20px" // Estilos para a secção do filtro
-  },
-  produtos: { 
-    display: "flex", flexWrap: "wrap", gap: "20px" // Produtos organizados numa grelha
-  },
-  produto: { 
-    border: "1px solid #ddd", padding: "10px", borderRadius: "10px", 
-    width: "200px", textAlign: "center" // Cada produto individual
-  },
-  linkProduto: { 
-    textDecoration: "none", color: "inherit" // Remove estilos do link e mantém cores
-  },
-  imagemProduto: { 
-    width: "100%", height: "150px", objectFit: "cover", borderRadius: "5px" // Estilo para a imagem do produto
-  },
-  botaoAdicionar: { 
-    marginTop: "10px", backgroundColor: "#4CAF50", color: "white", border: "none", 
-    padding: "10px", cursor: "pointer" // Botão de adicionar ao carrinho
-  },
-};
 
 export default Produtos;

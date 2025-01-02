@@ -9,74 +9,63 @@ function Produtos({ adicionarAoCarrinho }) {
   const [produtosFiltrados, setProdutosFiltrados] = useState([]); // Produtos filtrados
   const [categoriaFiltro, setCategoriaFiltro] = useState(""); // Categoria do filtro
 
-  // Caminhos das imagens de placeholder
-  const psuImagem = "https://via.placeholder.com/200?text=PSU";
-  const gpuImagem = "https://via.placeholder.com/200?text=GPU";
-  const tecladoImagem = "https://via.placeholder.com/200?text=Teclado";
-  const memoriaImagem = "https://via.placeholder.com/200?text=Memória";
-  const ratoImagem = "https://via.placeholder.com/200?text=Rato";
+  // URLs de imagens reais por categoria
+  const imagensPorCategoria = {
+    "Fontes de Alimentação": "https://www.worten.pt/i/7e5c499d7abdc9e4757e61525e32d665bf048b3f",
+    "Placas Gráficas": "https://www.worten.pt/i/17ed58e6095e9be43fb3c6cba64440a208460982",
+    Teclados: "https://www.worten.pt/i/93f8b2abf211a7f4739576df366427c87b6ac431",
+    Memórias: "https://www.worten.pt/i/8a85b122d357322bee8bed86577f3ed7d016059b",
+    Ratos: "https://www.worten.pt/i/a25583dcca17a379c5a522cbfafc6bb3e8b09b9c",
+    default: "https://via.placeholder.com/200?text=Imagem+Padrão",
+  };
 
   // Carregar os dados da API (já importado)
   useEffect(() => {
     const produtosFormatados = [];
 
+    // Função para formatar os produtos e filtrar os com preço válido
+    const adicionarProduto = (categoria, dadosProduto, categoriaImagem) => {
+      dadosProduto.slice(0, 5).forEach((produto, index) => {
+        const preco = parseFloat(produto.price[1]) || 0;
+        if (preco > 0) {
+          produtosFormatados.push({
+            id: `${categoria.toLowerCase().replace(" ", "-")}-${index + 1}`,
+            nome: `${produto.brand} ${produto.model}`,
+            preco: preco,
+            categoria: categoria,
+            imagem: imagensPorCategoria[categoriaImagem] || imagensPorCategoria.default,
+          });
+        }
+      });
+    };
+
     // Fontes de alimentação
     if (apiData["power-supply"]) {
-      produtosFormatados.push(...apiData["power-supply"].slice(0, 5).map((produto, index) => ({
-        id: `psu-${index + 1}`,
-        nome: `${produto.brand} ${produto.model}`,
-        preco: parseFloat(produto.price[1]) || 0,
-        categoria: "Fontes de Alimentação",
-        imagem: psuImagem,
-      })));
+      adicionarProduto("Fontes de Alimentação", apiData["power-supply"], "Fontes de Alimentação");
     }
 
     // Placas gráficas
     if (apiData["video-card"]) {
-      produtosFormatados.push(...apiData["video-card"].slice(0, 5).map((produto, index) => ({
-        id: `gpu-${index + 1}`,
-        nome: `${produto.brand} ${produto.model}`,
-        preco: parseFloat(produto.price[1]) || 0,
-        categoria: "Placas Gráficas",
-        imagem: gpuImagem,
-      })));
+      adicionarProduto("Placas Gráficas", apiData["video-card"], "Placas Gráficas");
     }
 
     // Teclados
     if (apiData["keyboard"]) {
-      produtosFormatados.push(...apiData["keyboard"].slice(0, 5).map((produto, index) => ({
-        id: `keyboard-${index + 1}`,
-        nome: `${produto.brand} ${produto.model}`,
-        preco: parseFloat(produto.price[1]) || 0,
-        categoria: "Teclados",
-        imagem: tecladoImagem,
-      })));
+      adicionarProduto("Teclados", apiData["keyboard"], "Teclados");
     }
 
     // Memórias
     if (apiData["memory"]) {
-      produtosFormatados.push(...apiData["memory"].slice(0, 5).map((produto, index) => ({
-        id: `memory-${index + 1}`,
-        nome: `${produto.brand} ${produto.model}`,
-        preco: parseFloat(produto.price[1]) || 0,
-        categoria: "Memórias",
-        imagem: memoriaImagem,
-      })));
+      adicionarProduto("Memórias", apiData["memory"], "Memórias");
     }
 
     // Ratos
     if (apiData["mouse"]) {
-      produtosFormatados.push(...apiData["mouse"].slice(0, 5).map((produto, index) => ({
-        id: `mouse-${index + 1}`,
-        nome: `${produto.brand} ${produto.model}`,
-        preco: parseFloat(produto.price[1]) || 0,
-        categoria: "Ratos",
-        imagem: ratoImagem,
-      })));
+      adicionarProduto("Ratos", apiData["mouse"], "Ratos");
     }
 
-    setProdutos(produtosFormatados); // Atualiza o estado com todos os produtos
-    setProdutosFiltrados(produtosFormatados); // Inicialmente, mostra todos os produtos
+    setProdutos(produtosFormatados); // Atualiza o estado com todos os produtos válidos
+    setProdutosFiltrados(produtosFormatados); // Inicialmente, mostra todos os produtos válidos
   }, []);
 
   // Função para filtrar os produtos pela categoria selecionada

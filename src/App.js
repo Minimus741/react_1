@@ -85,11 +85,34 @@ function App() {
 
 // Componente para a página inicial
 function Home() {
-  // Produtos em destaque na página inicial
-  const produtosEmDestaque = [
-    { id: 1, nome: "PC Gaming RGB Full Leds", preco: 899, imagem: "https://storage.googleapis.com/catalog-pictures-carrefour-es/catalog/pictures/hd_510x_/8425402437674_1.jpg" },
-    { id: 2, nome: "Laptop Rog", preco: 1100, imagem: "https://www.worten.pt/i/df10a575b683ef8dff505bcf7bf369aadf4b5ab7" },
-  ];
+  // Importar os dados da API
+  const apiData = API;
+
+  // Função para obter produtos da API
+  const obterProdutosDaAPI = () => {
+    const produtos = [];
+
+    // Iterar pelas categorias e adicionar os produtos
+    Object.keys(apiData).forEach((categoria) => {
+      apiData[categoria].forEach((produto) => {
+        const preco = parseFloat(produto.price[1]);
+        if (!isNaN(preco) && preco > 0) {
+          produtos.push({
+            id: produto.id || `${categoria}-${produto.model}`, // Criar um ID único
+            nome: `${produto.brand} ${produto.model}`,
+            preco: preco,
+            imagem: produto.image || "https://via.placeholder.com/200", // Imagem ou placeholder
+          });
+        }
+      });
+    });
+
+    // Retornar até 3 produtos para destaque
+    return produtos.slice(0, 3);
+  };
+
+  // Obter os produtos em destaque da API
+  const produtosEmDestaque = obterProdutosDaAPI();
 
   return (
     <div style={estilos.secao}>
@@ -114,6 +137,7 @@ function Home() {
     </div>
   );
 }
+
 
 // Estilos usados na aplicação
 const estilos = {

@@ -82,35 +82,28 @@ function App() {
   );
 }
 
-// página inicial
+// Página inicial
 function Home() {
-  // Importar os dados da API
   const apiData = API;
 
-  // Função para obter produtos da API
   const obterProdutosDaAPI = () => {
     const produtos = [];
-
-    // Iterar pelas categorias e adicionar os produtos
     Object.keys(apiData).forEach((categoria) => {
       apiData[categoria].forEach((produto) => {
         const preco = parseFloat(produto.price[1]);
         if (!isNaN(preco) && preco > 0) {
           produtos.push({
-            id: produto.id || `${categoria}-${produto.model}`, 
+            id: produto.id || `${categoria}-${produto.model}`,
             nome: `${produto.brand} ${produto.model}`,
             preco: preco,
-            imagem: produto.image || "https://www.worten.pt/i/7e5c499d7abdc9e4757e61525e32d665bf048b3f", 
+            imagem: produto.image || "https://www.worten.pt/i/7e5c499d7abdc9e4757e61525e32d665bf048b3f",
           });
         }
       });
     });
-
-    // Retornar até 3 produtos para destaque
     return produtos.slice(0, 3);
   };
 
-  // Obter os produtos em destaque da API
   const produtosEmDestaque = obterProdutosDaAPI();
 
   return (
@@ -129,9 +122,15 @@ function Home() {
           </div>
         ))}
       </div>
+
+      <div style={estilos.imagemAbaixoProdutos}>
+        <h3 style={estilos.textoImagem}>Entre em contato conosco!</h3>
+      </div>
     </div>
   );
 }
+
+
 
 
 
@@ -146,14 +145,12 @@ const estilos = {
     position: "sticky",
     top: 0,
     zIndex: 1000,
-    backgroundImage: "url(https://tinyurl.com/y5mtwypw)", 
-    backgroundSize: "cover", // Faz com que a imagem cubra todo o fundo
-    backgroundPosition: "center", // Garante que a imagem fica centralizada
-    backgroundRepeat: "no-repeat", // Impede que a imagem se repita
+
   },
   linkLogo: {
     textDecoration: "none",
     color: "inherit",
+    
   },
   logo: {
     margin: 0,
@@ -163,6 +160,7 @@ const estilos = {
     color: "#FFD700", 
     textTransform: "uppercase",
     transition: "color 0.3s ease",
+    
   },
   logoHover: {
     color: "#ff5733", 
@@ -174,6 +172,7 @@ const estilos = {
     fontSize: "1.2rem",
     fontWeight: "500",
     transition: "color 0.3s ease, transform 0.3s ease",
+    
   },
   linkHover: {
     color: "#FFD700", /* Cor de ouro no hover */
@@ -208,11 +207,13 @@ const estilos = {
     overflow: "hidden",
     cursor: "pointer",
     position: "relative",
+    
   },
   produtoEmDestaqueHover: {
     transform: "scale(1.05)",
     boxShadow: "0 12px 30px rgba(0, 0, 0, 0.15)",
     backgroundColor: "#f2f2f2", /* Fundo mais suave ao passar o rato */
+    
   },
 
   /* Imagem do produto */
@@ -225,18 +226,6 @@ const estilos = {
     transition: "transform 0.3s ease, opacity 0.3s ease",
   },
 
-  /* Link para ver detalhes do produto */
-  linkProduto: {
-    display: "inline-block",
-    marginTop: "15px",
-    color: "#007BFF",
-    textDecoration: "none",
-    fontSize: "1.2rem",
-    fontWeight: "600",
-    textTransform: "uppercase",
-    letterSpacing: "1px",
-    transition: "color 0.3s ease",
-  },
   linkProdutoHover: {
     color: "#ff5733", /* Cor chamativa no hover */
   },
@@ -249,7 +238,29 @@ const estilos = {
 
   /* Efeito de transição suave */
   transition: "all 0.3s ease-in-out",
-};
+
+    imagemAbaixoProdutos: {
+      width: "100%",
+      height: "auto",
+      backgroundImage: "url(https://tinyurl.com/y5mtwypw)",
+      backgroundSize: "cover",
+      backgroundPosition: "center",
+      backgroundRepeat: "no-repeat",
+      padding: "50px 0", // Adiciona algum espaçamento ao redor da imagem
+      display: "flex",
+      justifyContent: "center", // Centraliza o conteúdo
+      alignItems: "center", // Alinha verticalmente
+      textAlign: "center", // Centraliza o texto
+    },
+    textoImagem: {
+      color: "#fff", // Cor branca para o texto
+      fontSize: "1.5rem", // Tamanho de fonte para o texto
+      fontWeight: "700", // Peso da fonte para dar destaque
+      textShadow: "2px 2px 5px rgba(0, 0, 0, 0.3)", // Sombra no texto para melhorar o contraste
+    },
+  };
+  
+  
 
 
 

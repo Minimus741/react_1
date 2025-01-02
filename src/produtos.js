@@ -19,7 +19,7 @@ function Produtos({ adicionarAoCarrinho }) {
     default: "https://via.placeholder.com/200?text=Imagem+Padrão",
   };
 
-  // Carregar os dados da API (já importado)
+  // Carregar os dados da API 
   useEffect(() => {
     const produtosFormatados = [];
 

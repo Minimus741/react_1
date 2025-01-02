@@ -49,7 +49,6 @@ function App() {
   };
 
   return (
-    // Configuração do Router para gerenciar as rotas da aplicação
     <Router>
       <div style={estilos.navbar}>
         {/* Logótipo que redireciona para a página principal */}
@@ -83,7 +82,7 @@ function App() {
   );
 }
 
-// Componente para a página inicial
+// página inicial
 function Home() {
   // Importar os dados da API
   const apiData = API;
@@ -98,10 +97,10 @@ function Home() {
         const preco = parseFloat(produto.price[1]);
         if (!isNaN(preco) && preco > 0) {
           produtos.push({
-            id: produto.id || `${categoria}-${produto.model}`, // Criar um ID único
+            id: produto.id || `${categoria}-${produto.model}`, 
             nome: `${produto.brand} ${produto.model}`,
             preco: preco,
-            imagem: produto.image || "https://via.placeholder.com/200", // Imagem ou placeholder
+            imagem: produto.image || "https://www.worten.pt/i/7e5c499d7abdc9e4757e61525e32d665bf048b3f", 
           });
         }
       });
@@ -127,10 +126,6 @@ function Home() {
             />
             <p>{produto.nome}</p>
             <p>€{produto.preco.toFixed(2)}</p>
-            {/* Link para ver mais detalhes sobre os produtos */}
-            <Link to={`/produto/${produto.id}`} style={estilos.linkProduto}>
-              Ver Detalhes
-            </Link>
           </div>
         ))}
       </div>
@@ -139,17 +134,123 @@ function Home() {
 }
 
 
-// Estilos usados na aplicação
+
 const estilos = {
-  navbar: { display: "flex", justifyContent: "space-between", padding: "1rem", backgroundColor: "#333", color: "#fff" },
-  linkLogo: { textDecoration: "none", color: "inherit" },
-  logo: { margin: 0 },
-  link: { margin: "0 10px", color: "#fff", textDecoration: "none" },
-  secao: { padding: "1rem", textAlign: "center" },
-  containerProdutosEmDestaque: { display: "flex", justifyContent: "center", gap: "20px", flexWrap: "wrap" },
-  produtoEmDestaque: { border: "1px solid #ddd", padding: "10px", borderRadius: "10px", width: "200px", textAlign: "center" },
-  imagemProdutoEmDestaque: { width: "100%", height: "150px", objectFit: "cover", borderRadius: "5px" },
-  linkProduto: { display: "block", marginTop: "10px", color: "#007BFF", textDecoration: "none" },
+  navbar: {
+    display: "flex",
+    justifyContent: "space-between",
+    padding: "1.5rem 2rem",
+    backgroundColor: "#212121", /* Cor escura */
+    color: "#fff",
+    boxShadow: "0 4px 12px rgba(0, 0, 0, 0.2)", /* Sombra mais densa para dar profundidade */
+    position: "sticky",
+    top: 0,
+    zIndex: 1000,
+    backgroundImage: "url(https://tinyurl.com/y5mtwypw)", 
+    backgroundSize: "cover", // Faz com que a imagem cubra todo o fundo
+    backgroundPosition: "center", // Garante que a imagem fica centralizada
+    backgroundRepeat: "no-repeat", // Impede que a imagem se repita
+  },
+  linkLogo: {
+    textDecoration: "none",
+    color: "inherit",
+  },
+  logo: {
+    margin: 0,
+    fontSize: "2.5rem",
+    fontWeight: "700",
+    letterSpacing: "2px",
+    color: "#FFD700", 
+    textTransform: "uppercase",
+    transition: "color 0.3s ease",
+  },
+  logoHover: {
+    color: "#ff5733", 
+  },
+  link: {
+    margin: "0 20px",
+    color: "#fff",
+    textDecoration: "none",
+    fontSize: "1.2rem",
+    fontWeight: "500",
+    transition: "color 0.3s ease, transform 0.3s ease",
+  },
+  linkHover: {
+    color: "#FFD700", /* Cor de ouro no hover */
+    transform: "scale(1.05)",
+  },
+
+  /* Seção de produtos em destaque */
+  secao: {
+    padding: "3rem 1rem",
+    textAlign: "center",
+    backgroundColor: "#f4f4f4", /* Cor de fundo mais clara para contraste */
+    borderRadius: "20px",
+    marginTop: "3rem",
+    boxShadow: "0 6px 18px rgba(0, 0, 0, 0.1)", /* Sombra para dar elegância */
+  },
+  containerProdutosEmDestaque: {
+    display: "flex",
+    justifyContent: "center",
+    gap: "30px",
+    flexWrap: "wrap",
+    marginTop: "30px",
+  },
+  produtoEmDestaque: {
+    border: "1px solid #ddd",
+    padding: "20px",
+    borderRadius: "15px",
+    width: "250px",
+    backgroundColor: "#fff",
+    textAlign: "center",
+    transition: "transform 0.3s ease, box-shadow 0.3s ease, background-color 0.3s ease",
+    boxShadow: "0 8px 20px rgba(0, 0, 0, 0.1)",
+    overflow: "hidden",
+    cursor: "pointer",
+    position: "relative",
+  },
+  produtoEmDestaqueHover: {
+    transform: "scale(1.05)",
+    boxShadow: "0 12px 30px rgba(0, 0, 0, 0.15)",
+    backgroundColor: "#f2f2f2", /* Fundo mais suave ao passar o rato */
+  },
+
+  /* Imagem do produto */
+  imagemProdutoEmDestaque: {
+    width: "100%",
+    height: "180px",
+    objectFit: "cover",
+    borderRadius: "10px",
+    marginBottom: "15px",
+    transition: "transform 0.3s ease, opacity 0.3s ease",
+  },
+
+  /* Link para ver detalhes do produto */
+  linkProduto: {
+    display: "inline-block",
+    marginTop: "15px",
+    color: "#007BFF",
+    textDecoration: "none",
+    fontSize: "1.2rem",
+    fontWeight: "600",
+    textTransform: "uppercase",
+    letterSpacing: "1px",
+    transition: "color 0.3s ease",
+  },
+  linkProdutoHover: {
+    color: "#ff5733", /* Cor chamativa no hover */
+  },
+
+  /* Efeito de hover para as imagens */
+  imagemProdutoHover: {
+    transform: "scale(1.1)", /* Efeito de zoom nas imagens */
+    opacity: "0.8", /* Diminui a opacidade para criar um efeito de foco */
+  },
+
+  /* Efeito de transição suave */
+  transition: "all 0.3s ease-in-out",
 };
+
+
 
 export default App;

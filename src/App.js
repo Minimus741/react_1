@@ -124,7 +124,7 @@ function Home() {
       </div>
 
       <div style={estilos.imagemAbaixoProdutos}>
-        <h3 style={estilos.textoImagem}>Entre em contato conosco!</h3>
+        <h3 style={estilos.textoImagem}>Entre em contacto connosco!</h3>
       </div>
     </div>
   );
@@ -255,17 +255,16 @@ const estilos = {
   },
   textoImagem: {
     color: "#fff", // Cor do texto em branco
-    fontSize: "1.5rem",
-    fontWeight: "700",
-    textShadow: "2px 2px 5px rgba(0, 0, 0, 0.3)", // Sombra no texto
-    WebkitTextStroke: "1px black", // Borda preta nas letras para navegadores WebKit
-    textStroke: "1px black", // Borda preta nas letras
-    margin: "10px 0", // Espaçamento entre as linhas de texto
+    fontSize: "2rem", // Fonte maior para destaque
+    fontWeight: "bold", // Texto mais destacado
+    fontFamily: "Arial, sans-serif", // Alterar para Arial
+    textShadow: "1px 1px 2px rgba(0, 0, 0, 0.3)", // Sombra mais forte para contraste
+    WebkitTextStroke: "0.6px black", // Borda preta mais definida para navegadores WebKit
+    textStroke: "1px black", // Borda preta mais definida
+    margin: "15px 0", // Espaçamento maior entre as linhas de texto
   },
+  
   };
   
   
-
-
-
 export default App;

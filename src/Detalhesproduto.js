@@ -9,7 +9,7 @@ function DetalhesProduto({ adicionarAoCarrinho }) {
   // Função para obter a imagem com base na categoria
   const obterImagemPorCategoria = (categoria) => {
     const imagensCategorias = {
-      "Fontes de Alimentação": "https://www.worten.pt/i/7e5c499d7abdc9e4757e61525e32d665bf048b3f",
+      "Fontes de Alimentação" : "https://www.worten.pt/i/7e5c499d7abdc9e4757e61525e32d665bf048b3f",
       "Placas Gráficas": "https://www.worten.pt/i/17ed58e6095e9be43fb3c6cba64440a208460982",
       Teclados: "https://www.worten.pt/i/93f8b2abf211a7f4739576df366427c87b6ac431",
       Memórias: "https://www.worten.pt/i/8a85b122d357322bee8bed86577f3ed7d016059b",
@@ -46,7 +46,7 @@ function DetalhesProduto({ adicionarAoCarrinho }) {
             nome: `${produto.brand} ${produto.model}`,
             preco: preco,
             categoria: categoria,
-            descricao: obterDescricaoPorCategoria(categoria),
+            descricao: obterDescricaoPorCategoria(categoria), // Definir a descrição baseada na categoria
             imagem: obterImagemPorCategoria(categoria), // Definir a imagem baseada na categoria
           });
         }

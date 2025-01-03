@@ -239,25 +239,29 @@ const estilos = {
   /* Efeito de transição suave */
   transition: "all 0.3s ease-in-out",
 
-    imagemAbaixoProdutos: {
-      width: "100%",
-      height: "auto",
-      backgroundImage: "url(https://tinyurl.com/y5mtwypw)",
-      backgroundSize: "cover",
-      backgroundPosition: "center",
-      backgroundRepeat: "no-repeat",
-      padding: "50px 0", // Adiciona algum espaçamento ao redor da imagem
-      display: "flex",
-      justifyContent: "center", // Centraliza o conteúdo
-      alignItems: "center", // Alinha verticalmente
-      textAlign: "center", // Centraliza o texto
-    },
-    textoImagem: {
-      color: "#fff", // Cor branca para o texto
-      fontSize: "1.5rem", // Tamanho de fonte para o texto
-      fontWeight: "700", // Peso da fonte para dar destaque
-      textShadow: "2px 2px 5px rgba(0, 0, 0, 0.3)", // Sombra no texto para melhorar o contraste
-    },
+  imagemAbaixoProdutos: {
+    width: "100%",
+    minHeight: "400px", // Define uma altura mínima para a seção
+    backgroundImage: "url(https://tinyurl.com/y5mtwypw)",
+    backgroundSize: "contain", // Ajusta o tamanho da imagem para caber na seção
+    backgroundPosition: "center",
+    backgroundRepeat: "no-repeat",
+    display: "flex",
+    flexDirection: "column", // Permite empilhar elementos verticalmente
+    justifyContent: "center",
+    alignItems: "center",
+    textAlign: "center",
+    padding: "20px", // Espaçamento interno para o conteúdo
+  },
+  textoImagem: {
+    color: "#fff", // Cor do texto em branco
+    fontSize: "1.5rem",
+    fontWeight: "700",
+    textShadow: "2px 2px 5px rgba(0, 0, 0, 0.3)", // Sombra no texto
+    WebkitTextStroke: "1px black", // Borda preta nas letras para navegadores WebKit
+    textStroke: "1px black", // Borda preta nas letras
+    margin: "10px 0", // Espaçamento entre as linhas de texto
+  },
   };
   
   

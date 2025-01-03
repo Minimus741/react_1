@@ -20,6 +20,19 @@ function DetalhesProduto({ adicionarAoCarrinho }) {
     return imagensCategorias[categoria] || "https://www.exemplo.com/imagens/default.png"; // Imagem padrão
   };
 
+    // Função para obter a descrição com base na categoria
+    const obterDescricaoPorCategoria = (categoria) => {
+      const descricaoCategorias = {
+        "Fontes de Alimentação": "A fonte de alimentação de alto desempenho é projetada para atender aos mais altos padrões de engenharia, é confiável e eficiente em termos de energia",
+        "Placas Gráficas": "Com base na avançada ARQUITETURA “VEGA”, criada para lidar com grandes conjuntos de dados.As suas configurações de saída flexíveis são capazes de controlar vários monitores de alta resolução.",
+        Teclados: "Efeitos de LED Chroma Marquee e 3 fases de configuração de brilho para teclado para melhorar a visibilidade em condições de pouca luz e opção de efeito de luz respirável no teclado.",
+        Memórias: "O LEGEND 800 suporta a interface PCIe Gen4 x4 mais recente, que atende ao padrão NVMe 1.4. Oferece excelente desempenho de leitura e gravação, e suporte para as plataformas Intel e AMD mais recentes. Seja num desktop ou num laptop",
+        Ratos: "Design ergonômico para conforto premium. Design simplificado com acabamento antiderrapante e anti-suor. Um ajuste perfeito para todos os tamanhos e formatos de mãos; para aproveitar ao máximo a tua experiência de jogo.",
+      };
+    
+      return descricaoCategorias[categoria] || "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua."; // Descrição padrão
+    };
+
   useEffect(() => {
     const produtoEncontrado = [];
 
@@ -33,7 +46,7 @@ function DetalhesProduto({ adicionarAoCarrinho }) {
             nome: `${produto.brand} ${produto.model}`,
             preco: preco,
             categoria: categoria,
-            descricao: `Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.`,
+            descricao: obterDescricaoPorCategoria(categoria),
             imagem: obterImagemPorCategoria(categoria), // Definir a imagem baseada na categoria
           });
         }

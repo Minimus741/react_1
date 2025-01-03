@@ -175,11 +175,11 @@ const estilos = {
     
   },
   linkHover: {
-    color: "#FFD700", /* Cor de ouro no hover */
+    color: "#FFD700", /* cor dourada */
     transform: "scale(1.05)",
   },
 
-  /* Seção de produtos em destaque */
+  /* Secção de produtos em destaque */
   secao: {
     padding: "3rem 1rem",
     textAlign: "center",
@@ -241,9 +241,9 @@ const estilos = {
 
   imagemAbaixoProdutos: {
     width: "100%",
-    minHeight: "400px", // Define uma altura mínima para a seção
+    minHeight: "400px", // Define uma altura mínima para a secção
     backgroundImage: "url(https://tinyurl.com/y5mtwypw)",
-    backgroundSize: "contain", // Ajusta o tamanho da imagem para caber na seção
+    backgroundSize: "contain", // Ajusta o tamanho da imagem para caber na secção
     backgroundPosition: "center",
     backgroundRepeat: "no-repeat",
     display: "flex",

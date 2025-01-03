@@ -23,7 +23,7 @@ function Produtos({ adicionarAoCarrinho }) {
   useEffect(() => {
     const produtosFormatados = [];
 
-    // Função para formatar os produtos e filtrar os com preço válido
+    // Função para formatar os produtos e filtrar os que tem preço válido
     const adicionarProduto = (categoria, dadosProduto, categoriaImagem) => {
       dadosProduto.slice(0, 5).forEach((produto, index) => {
         const preco = parseFloat(produto.price[1]) || 0;
@@ -65,7 +65,7 @@ function Produtos({ adicionarAoCarrinho }) {
     }
 
     setProdutos(produtosFormatados); // Atualiza o estado com todos os produtos válidos
-    setProdutosFiltrados(produtosFormatados); // Inicialmente, mostra todos os produtos válidos
+    setProdutosFiltrados(produtosFormatados); // Inicialmente mostra todos os produtos válidos
   }, []);
 
   // Função para filtrar os produtos pela categoria selecionada
